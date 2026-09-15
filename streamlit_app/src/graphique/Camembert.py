@@ -6,10 +6,10 @@ PALETTE = ["#040e1b", "#50757e", "#6f843d", "#044d52", "#379f7a", "#aae8d3"]
 MAX_CATEGORIES = 6  # au-delà, on regroupe le reste dans "Autres"
 
 LIBELLES_POSTES = {
-    "GK": "Gardien de but",
+    "GK": "Gardien",
     "CB": "Défenseur central",
-    "LB": "Arrière gauche",
-    "RB": "Arrière droit",
+    "LB": "Latéral gauche",
+    "RB": "Latéral droit",
     "CDM": "Milieu défensif",
     "CM": "Milieu central",
     "CAM": "Milieu offensif",
@@ -18,7 +18,7 @@ LIBELLES_POSTES = {
     "LW": "Ailier gauche",
     "RW": "Ailier droit",
     "ST": "Attaquant",
-    "Autres": "Autres postes",
+    #"Autres": "Autres postes",
 }
 
 
