@@ -1,11 +1,5 @@
-streamlit
-numpy
-pandas
-matplotlib.pyplot
-seaborn
-pathlib
-dataclasses
-constantes.input_data
-math
-unicodedata
-os
+streamlit>=1.60
+pandas>=2.2
+numpy>=1.26
+matplotlib>=3.9
+seaborn>=0.13
