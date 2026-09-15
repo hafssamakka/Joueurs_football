@@ -1,19 +1,29 @@
-import matplotlib.pyplot as plt
+"""Graphique de comparaison : boxplot du dribble par poste (Plotly)."""
+
 import pandas as pd
-import seaborn as sns
+import plotly.express as px
 import streamlit as st
+
+COULEUR_BOITES = "#098A61"
 
 
 def boxplot_dri_poste(sel: pd.DataFrame) -> None:
     st.subheader("Comparaison du dribble par poste")
-    fig, ax = plt.subplots(figsize=(5, 3.8))
-    ordre = sel.groupby("Position")["DRI"].median().sort_values(ascending=False).index
-    sns.boxplot(
-        data=sel, x="Position", y="DRI", order=ordre, ax=ax,
-        color="#098A61", showfliers=False,
+
+    ordre = sel.groupby("Position")["DRI"].median().sort_values(ascending=False).index.tolist()
+
+    fig = px.box(
+        sel, x="Position", y="DRI",
+        category_orders={"Position": ordre},
+        color_discrete_sequence=[COULEUR_BOITES],
+        points=False,
     )
-    ax.set_xlabel("Poste")
-    ax.set_ylabel("Dribble")
-    ax.set_title("Dribble par poste")
-    plt.xticks(rotation=30, ha="right")
-    st.pyplot(fig)
+    fig.update_layout(
+        title="Dribble par poste",
+        xaxis_title="Poste",
+        yaxis_title="Dribble",
+        height=420,
+        showlegend=False,
+    )
+
+    st.plotly_chart(fig, width="stretch")

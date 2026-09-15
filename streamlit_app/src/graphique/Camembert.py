@@ -1,5 +1,5 @@
-import matplotlib.pyplot as plt
 import pandas as pd
+import plotly.express as px
 import streamlit as st
 
 PALETTE = ["#040e1b", "#50757e", "#6f843d", "#044d52", "#379f7a", "#aae8d3"]
@@ -32,20 +32,31 @@ def afficher_camembert_poste(sel: pd.DataFrame) -> None:
         autres = comptes.iloc[MAX_CATEGORIES - 1:].sum()
         comptes = pd.concat([top, pd.Series({"Autres": autres})])
 
-    fig, ax = plt.subplots(figsize=(12, 4))
-    couleurs = PALETTE[: len(comptes)]
-    wedges, _, _ = ax.pie(
-        comptes.values,
-        autopct="%1.0f%%",
-        colors=couleurs,
-        startangle=90,
-        wedgeprops={"edgecolor": "white", "linewidth": 1},
-        textprops={"color": "black", "fontsize": 10},
-    )
-    # legende pour expliquer la signification de chaque code de poste
-    libelles = [f"{poste} — {LIBELLES_POSTES.get(poste, poste)}" for poste in comptes.index]
-    ax.legend(wedges, libelles, title="Postes", bbox_to_anchor=(1.05, 1), loc="upper left")
+    donnees = pd.DataFrame({
+        "Poste": comptes.index,
+        "Nombre": comptes.values,
+        "Libellé": [f"{p} — {LIBELLES_POSTES.get(p, p)}" for p in comptes.index],
+    })
+    couleurs = dict(zip(comptes.index, PALETTE[: len(comptes)]))
 
-    ax.set_title("Postes dans la sélection")
-    ax.axis("equal")
-    st.pyplot(fig)
+    fig = px.pie(
+        donnees, names="Poste", values="Nombre",
+        color="Poste", color_discrete_map=couleurs,
+        hover_name="Libellé",
+        custom_data=["Libellé"],
+    )
+    fig.update_traces(
+        textinfo="percent+label",
+        hovertemplate="%{customdata[0]}<br>%{value} joueurs (%{percent})<extra></extra>",
+        marker=dict(line=dict(color="white", width=1)),
+    )
+    fig.update_layout(
+        title="Postes dans la sélection",
+        legend_title_text="Poste",
+        height=420,
+    )
+
+    st.plotly_chart(fig, width="stretch")
+
+
+
