@@ -1,0 +1,11 @@
+streamlit
+numpy
+pandas
+matplotlib.pyplot
+seaborn
+pathlib
+dataclasses
+constantes.input_data
+math
+unicodedata
+os
