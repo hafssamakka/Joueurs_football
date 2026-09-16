@@ -13,4 +13,4 @@
 
 **Limite du dataset.** Sans fichier `joueurs.csv` fourni, l'app génère des données synthétiques à but de démonstration uniquement — les corrélations qu'on y observe (ex. DRI corrélé à PAC) sont artificielles et ne reflètent pas de vrais joueurs.
 
-**Lancement :** `pip install streamlit pandas seaborn matplotlib` puis `streamlit run app.py`.
+**Lancement :** `pip install streamlit pandas seaborn matplotlib` puis `streamlit run streamlit_app/main.py`.
